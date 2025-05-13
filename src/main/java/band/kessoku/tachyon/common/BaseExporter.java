@@ -2,7 +2,9 @@ package band.kessoku.tachyon.common;
 
 import band.kessoku.tachyon.api.export.Data;
 import band.kessoku.tachyon.api.export.Exportable;
+import band.kessoku.tachyon.common.utils.JsonWriter;
 import club.someoneice.json.node.ArrayNode;
+import club.someoneice.json.node.MapNode;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -38,13 +40,13 @@ public class BaseExporter<T extends Data> implements Exportable<T> {
     }
 
     public void serialize(Path filePath) {
-        ArrayNode datas = new ArrayNode();
+        ArrayNode array = new ArrayNode();
         exportedData.forEach(data -> {
             if (data != null) {
-                data.serialize(datas);
+                data.serialize(array);
             }
         });
-
+        JsonWriter.writeToPath(filePath.resolve(type + ".json"), array);
     }
 
     @Override
