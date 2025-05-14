@@ -7,12 +7,11 @@ import band.kessoku.tachyon.common.data.ItemData;
 import java.nio.file.Path;
 
 public class ModHolder {
-
     private final String modId;
 
-    public BaseExporter<ItemData> items;
-    public BaseExporter<EntityData> entities;
-    public BaseExporter<EffectData> effects;
+    public final BaseExporter<ItemData> items;
+    public final BaseExporter<EntityData> entities;
+    public final BaseExporter<EffectData> effects;
 
     public ModHolder(String modId) {
         this.modId = modId;
@@ -23,6 +22,7 @@ public class ModHolder {
 
     public void export(Path path) {
         path = path.resolve(modId);
+
         items.serialize(path);
         entities.serialize(path);
         effects.serialize(path);

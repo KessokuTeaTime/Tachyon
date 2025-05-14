@@ -20,12 +20,12 @@ public class JsonWriter {
     }
 
     private static void tryWriteToPath(Path path, JsonNode<?> content) throws IOException {
-        File target = path.toFile();
-        if (!target.exists() || !target.isFile()) target.getParentFile().mkdirs();
-        String result = JsonBuilder.prettyPrint(content);
-        OutputStream outputStream = Files.newOutputStream(path);
-        outputStream.write(result.getBytes());
-        outputStream.close();
-    }
+        File target = path.toFile().getParentFile();
+        if ((!target.exists() || !target.isDirectory()) && !target.getParentFile().mkdirs()) {
+            throw new IOException("Can't be create the path %s!".formatted(target.getPath()));
+        }
 
+        String result = JsonBuilder.prettyPrint(content);
+        Files.write(path, result.getBytes());
+    }
 }

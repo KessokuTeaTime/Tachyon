@@ -33,6 +33,7 @@ public class BaseExporter<T extends Data> implements Exportable<T> {
         }
     }
 
+    // Fixme 堆污染可能不是一个好的主意，即便这很难发生问题。
     public void addExportedData(T... data) {
         if (data != null) {
             exportedData.addAll(Arrays.stream(data).toList());
