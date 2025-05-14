@@ -11,26 +11,17 @@ public record IngredientData(
 ) {
     public MapNode serialize() {
         MapNode itself = new MapNode();
-        switch (type) {
-            case ITEM -> itself.put("item", id);
-            case TAG -> itself.put("tag", id);
-        }
+        itself.put(type.getName(), id);
         itself.put("count", count);
         return itself;
     }
 
     public enum Type {
-        ITEM("item"),
-        TAG("tag");
-
-        private final String name;
-
-        Type(String name) {
-            this.name = name;
-        }
+        ITEM,
+        TAG;
 
         public String getName() {
-            return name;
+            return this.name().toLowerCase();
         }
     }
 }
