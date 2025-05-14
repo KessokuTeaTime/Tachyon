@@ -18,6 +18,7 @@ import java.util.List;
  * @param itemGroupName 物品组名称
  * @param largeIcon 大图标
  * @param smallIcon 小图标
+ * @param nbt 物品 NBT
  */
 
 public record ItemData(
@@ -29,8 +30,13 @@ public record ItemData(
         List<String> tagList,
         String itemGroupName,
         String largeIcon,
-        String smallIcon
+        String smallIcon,
+        String nbt
 ) implements Data {
+
+    public ItemData(String id, String name, String subName, int maxCount, int maxDamage, List<String> tagList, String itemGroupName, String largeIcon, String smallIcon) {
+        this(id, name, subName, maxCount, maxDamage, tagList, itemGroupName, largeIcon, smallIcon, "");
+    }
 
     private ArrayNode toTagArray() {
         ArrayNode arrayNode = new ArrayNode();
@@ -50,6 +56,7 @@ public record ItemData(
         itself.put("CreativeTabName", itemGroupName);
         itself.put("largeIcon", largeIcon);
         itself.put("smallIcon", smallIcon);
+        if (!nbt.isBlank()) itself.put("nbt", nbt);
         arrayNode.add(itself);
     }
 

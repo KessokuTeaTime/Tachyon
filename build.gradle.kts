@@ -15,6 +15,7 @@ java {
 }
 
 dependencies {
+    implementation("com.google.guava:guava:33.4.8-jre")
     implementation("club.snowlyicewolf:amarok-json-for-java:1.7.8")
     implementation("it.unimi.dsi:fastutil:8.5.15")
     implementation("org.jetbrains:annotations:26.0.2")
